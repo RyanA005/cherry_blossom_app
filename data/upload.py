@@ -8,7 +8,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # send data from csv
-with open("final.csv", newline='', encoding='utf-8') as csvfile:
+with open("fixed.csv", newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for idx, row in enumerate(reader, start=1):
         doc_id = str(idx)

@@ -2,13 +2,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { colors } from './src/utils/colors';
 // import modules we want
 
 import { TreesScreen } from './src/screens/TreesScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
 import { TestScreen } from './src/screens/TestScreen';
 // importing the screens we want as named components
+
+import { TreeDataProvider } from './src/contexts/TreeDataContext';
+import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+// we are using the treedatacontext to only fetch all tree data from firebase once, then we hold onto it until we exit or refresh
+// anywhere in the project we can get data with soemthing like:
+// const { trees, loading, error, refreshTrees } = useTreeData();
+// data is stored in trees, calling refreshTrees() gets us new data
+
+// we are using the themecontext to centralize all our colors
+// anywhere in the project we can get colors with:
+// const { colors } = useTheme();
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -18,6 +28,8 @@ const Stack = createNativeStackNavigator();
 
 // tab navigator component
 function TabNavigator() {
+  const { colors } = useTheme();
+
   return (
     <Tab.Navigator
       id={undefined}
@@ -54,7 +66,10 @@ function TabNavigator() {
   );
 }
 
-export default function App() {
+// navigation wrapper component that uses theme
+function NavigationWrapper() {
+  const { colors } = useTheme();
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -84,5 +99,15 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <TreeDataProvider>
+        <NavigationWrapper />
+      </TreeDataProvider>
+    </ThemeProvider>
   );
 }

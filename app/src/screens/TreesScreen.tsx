@@ -1,11 +1,11 @@
+import React from 'react';
 import { View, Text } from 'react-native';
-import { colors } from '../utils/colors';
 
 
-export function TreesScreen({ navigation }) {
+export function TreesScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Tree view page</Text>
+      <Text>Welcome to the app!</Text>
     </View>
   );
 }
