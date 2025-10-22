@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Alert, Imag
 import { TouchableWithoutFeedback } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Tree, addTree } from '../utils/data';
+import { Tree } from '../utils/data';
 import { LocationPickerModal } from './LocationModal';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -192,6 +191,7 @@ export function CreateModal({ visible, onClose, onSave }: CreateModalProps) {
               {editField('Description', newTree.description, (text) => setNewTree({ ...newTree, description: text }))}
               {editField('Zone', newTree.zone, (text) => setNewTree({ ...newTree, zone: text }))}
               {editField('Date', newTree.date, (text) => setNewTree({ ...newTree, date: text }))}
+
               <View style={styles.editField}>
                 <Text style={styles.label}>Diameter:</Text>
                 <TouchableOpacity onPress={cycleDiameter} style={styles.cycleBtn}>
